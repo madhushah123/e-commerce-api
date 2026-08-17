@@ -1,23 +1,22 @@
-// const express = require('express');
-// const app = express();
-// const port = 3000;
+// const express = require("express");
+import express from 'express';                          // Import the Express framework for building the server
+import connectDB from './config/database.js';            // Import the function to connect to the database
+import HANDLERS from './handlers/index.js';             // Import the route handlers for handling different endpoints and controllers
+import errorMiddleware from './middlewares/error.js';   // Import the custom error handling middleware to handle errors and send appropriate responses
+import { authMiddleware } from './middlewares/auth.js'; // Import the authentication middleware to protect routes and handle authentication
+import "@dotenvx/dotenvx/config";
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!');
-// });
+const app = express();      // Create an instance of the Express application
 
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
+const PORT = process.env.PORT;     // Use environment variable for port, default to 3000 if not set
 
-import express from 'express';
+connectDB();                     // Connect to the database before starting the server
 
-const app = express();
+app.use(express.json());       // Middleware to parse JSON request bodies
+app.use(authMiddleware);       // Middleware for handling authentication and protecting routes
+app.use("/", HANDLERS);       //middleware for handling routes, endpoints, and controllers
+app.use(errorMiddleware);     // Middleware for handling errors and sending appropriate responses
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.listen(PORT, () => {     // Start the server and listen on the specified port    
+    console.log(`Server is running on port ${PORT}`);       // Log a message to the console when the server is successfully running
 });

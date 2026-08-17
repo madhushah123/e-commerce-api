@@ -1,0 +1,46 @@
+import { Router } from "express";
+import USER_ROUTER from "./user.js";
+import AUTH_ROUTER from "./auth.js";
+import ADDRESS_ROUTER from "./address.js";
+import BRAND_ROUTER from "./brands.js";
+import CART_ROUTER from "./carts.js";
+import CART_ITEMS_ROUTER from "./cart_items.js";
+import CATEGORIES_ROUTER from "./categories.js";
+import COUPON_ROUTER from "./coupons.js";
+import NOTIFICATION_ROUTER from "./notifications.js";
+import ORDER_ROUTER from "./orders.js";
+import ORDER_COUPON_ROUTER from "./order_coupons.js";
+import ORDER_ITEM_ROUTER from "./order_items.js";
+import PAYMENT_ROUTER from "./payments.js";
+import PRODUCT_ROUTER from "./product.js";
+import PRODUCT_IMAGE_ROUTER from "./product_images.js";
+import PRODUCT_VARIANT_ROUTER from "./product_variants.js";
+import REVIEW_ROUTER from "./reviews.js";
+import SHIPMENT_ROUTER from "./shipments.js";
+import VENDOR_ROUTER from "./vendors.js";
+import WISHLIST_ROUTER from "./wishlists.js";
+
+const HANDLERS = Router();
+
+HANDLERS.use("/users", USER_ROUTER);
+HANDLERS.use("/auth", AUTH_ROUTER);
+HANDLERS.use("/addresses", ADDRESS_ROUTER);
+HANDLERS.use("/brands", BRAND_ROUTER);
+HANDLERS.use("/carts", CART_ROUTER);
+HANDLERS.use("/cart-items", CART_ITEMS_ROUTER);
+HANDLERS.use("/categories", CATEGORIES_ROUTER);
+HANDLERS.use("/coupons", COUPON_ROUTER);
+HANDLERS.use("/notifications", NOTIFICATION_ROUTER);
+HANDLERS.use("/orders", ORDER_ROUTER);
+HANDLERS.use("/order-coupons", ORDER_COUPON_ROUTER);
+HANDLERS.use("/order-items", ORDER_ITEM_ROUTER);
+HANDLERS.use("/payments", PAYMENT_ROUTER);
+HANDLERS.use("/products", PRODUCT_ROUTER);
+HANDLERS.use("/product-images", PRODUCT_IMAGE_ROUTER);
+HANDLERS.use("/product-variants", PRODUCT_VARIANT_ROUTER);
+HANDLERS.use("/reviews", REVIEW_ROUTER);
+HANDLERS.use("/shipments", SHIPMENT_ROUTER);
+HANDLERS.use("/vendors", VENDOR_ROUTER);
+HANDLERS.use("/wishlists", WISHLIST_ROUTER);
+
+export default HANDLERS;

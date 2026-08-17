@@ -1,11 +1,773 @@
-@baseUrl = http://localhost:5000
+@baseUrl = http://localhost:3000
 
-### User Registration
-POST /api/users/register
-Content-Type: application/json  
+@userId = 64d8c2d1e0d9a4b5f1a2b3c4
+@addressId = 64d8c2d1e0d9a4b5f1a2b3c5
+@brandId = 64d8c2d1e0d9a4b5f1a2b3c6
+@categoryId = 64d8c2d1e0d9a4b5f1a2b3c7
+@productId = 64d8c2d1e0d9a4b5f1a2b3c8
+@productImageId = 64d8c2d1e0d9a4b5f1a2b3d2
+@productVariantId = 64d8c2d1e0d9a4b5f1a2b3d3
+@cartId = 64d8c2d1e0d9a4b5f1a2b3c9
+@cartItemId = 64d8c2d1e0d9a4b5f1a2b3d6
+@couponId = 64d8c2d1e0d9a4b5f1a2b3ca
+@orderId = 64d8c2d1e0d9a4b5f1a2b3cb
+@orderItemId = 64d8c2d1e0d9a4b5f1a2b3d4
+@orderCouponId = 64d8c2d1e0d9a4b5f1a2b3d5
+@paymentId = 64d8c2d1e0d9a4b5f1a2b3cc
+@reviewId = 64d8c2d1e0d9a4b5f1a2b3cd
+@wishlistId = 64d8c2d1e0d9a4b5f1a2b3ce
+@vendorId = 64d8c2d1e0d9a4b5f1a2b3cf
+@notificationId = 64d8c2d1e0d9a4b5f1a2b3d0
+@shipmentId = 64d8c2d1e0d9a4b5f1a2b3d1
+@token = your_jwt_token_here
+
+### --------------------------------------------------
+### Auth
+### --------------------------------------------------
+
+### Register user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
 
 {
-  "username": "madhu_shah",
-  "email": "madhu.shah@example.com",
-  "password": "password123"
-} 
+  "name": "Test User",
+  "email": "user1@test.com",
+  "password": "abcdefgh"
+}
+
+### Login user
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "user1@test.com",
+  "password": "abcdefgh"
+}
+
+### --------------------------------------------------
+### Users
+### --------------------------------------------------
+
+### Create user
+POST {{baseUrl}}/users
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "abcdefgh"
+}
+
+### Get all users
+GET {{baseUrl}}/users
+Authorization: Bearer {{token}}
+
+### Get one user
+GET {{baseUrl}}/users/{{userId}}
+Authorization: Bearer {{token}}
+
+### Update user
+PATCH {{baseUrl}}/users/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "John Updated",
+  "email": "john.updated@example.com"
+}
+
+### Delete user
+DELETE {{baseUrl}}/users/{{userId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Addresses
+### --------------------------------------------------
+
+### Create address
+POST {{baseUrl}}/addresses
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "userId": "{{userId}}",
+  "line1": "123 Main Street",
+  "line2": "Apartment 4B",
+  "city": "New York",
+  "state": "NY",
+  "country": "USA",
+  "postalCode": "10001",
+  "type": "home"
+}
+
+### Get all addresses
+GET {{baseUrl}}/addresses
+Authorization: Bearer {{token}}
+
+### Get one address
+GET {{baseUrl}}/addresses/{{addressId}}
+Authorization: Bearer {{token}}
+
+### Update address
+PATCH {{baseUrl}}/addresses/{{addressId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "line1": "456 Updated Street",
+  "city": "Brooklyn",
+  "type": "work"
+}
+
+### Delete address
+DELETE {{baseUrl}}/addresses/{{addressId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Brands
+### --------------------------------------------------
+
+### Create brand
+POST {{baseUrl}}/brands
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Nike",
+  "description": "Sports and lifestyle products",
+  "slug": "nike"
+}
+
+### Get all brands
+GET {{baseUrl}}/brands
+Authorization: Bearer {{token}}
+
+### Get one brand
+GET {{baseUrl}}/brands/{{brandId}}
+Authorization: Bearer {{token}}
+
+### Update brand
+PATCH {{baseUrl}}/brands/{{brandId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Nike Updated",
+  "description": "Updated sports brand description"
+}
+
+### Delete brand
+DELETE {{baseUrl}}/brands/{{brandId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Categories
+### --------------------------------------------------
+
+### Create category
+POST {{baseUrl}}/categories
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Electronics",
+  "description": "Electronic gadgets and devices",
+  "slug": "electronics"
+}
+
+### Get all categories
+GET {{baseUrl}}/categories
+Authorization: Bearer {{token}}
+
+### Get one category
+GET {{baseUrl}}/categories/{{categoryId}}
+Authorization: Bearer {{token}}
+
+### Update category
+PATCH {{baseUrl}}/categories/{{categoryId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Electronics & Accessories",
+  "description": "Updated category description"
+}
+
+### Delete category
+DELETE {{baseUrl}}/categories/{{categoryId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Products
+### --------------------------------------------------
+
+### Create product
+POST {{baseUrl}}/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Wireless Headphones",
+  "description": "Noise-cancelling over-ear headphones",
+  "price": 249.99,
+  "stock": 25,
+  "categoryId": "{{categoryId}}",
+  "brandId": "{{brandId}}",
+  "isActive": true
+}
+
+### Get all products
+GET {{baseUrl}}/products
+Authorization: Bearer {{token}}
+
+### Get one product
+GET {{baseUrl}}/products/{{productId}}
+Authorization: Bearer {{token}}
+
+### Update product
+PATCH {{baseUrl}}/products/{{productId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "price": 229.99,
+  "stock": 20,
+  "description": "Updated product description"
+}
+
+### Delete product
+DELETE {{baseUrl}}/products/{{productId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Product Images
+### --------------------------------------------------
+
+### Create product image
+POST {{baseUrl}}/product-images
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "productId": "{{productId}}",
+  "url": "https://example.com/images/product-main.jpg",
+  "isPrimary": true
+}
+
+### Get all product images
+GET {{baseUrl}}/product-images
+Authorization: Bearer {{token}}
+
+### Get one product image
+GET {{baseUrl}}/product-images/{{productImageId}}
+Authorization: Bearer {{token}}
+
+### Update product image
+PATCH {{baseUrl}}/product-images/{{productImageId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "url": "https://example.com/images/product-main-updated.jpg",
+  "isPrimary": false
+}
+
+### Delete product image
+DELETE {{baseUrl}}/product-images/{{productImageId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Product Variants
+### --------------------------------------------------
+
+### Create product variant
+POST {{baseUrl}}/product-variants
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "productId": "{{productId}}",
+  "name": "Black / 64GB",
+  "sku": "PHX-BLK-64",
+  "price": 299.99,
+  "stock": 15
+}
+
+### Get all product variants
+GET {{baseUrl}}/product-variants
+Authorization: Bearer {{token}}
+
+### Get one product variant
+GET {{baseUrl}}/product-variants/{{productVariantId}}
+Authorization: Bearer {{token}}
+
+### Update product variant
+PATCH {{baseUrl}}/product-variants/{{productVariantId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Black / 128GB",
+  "price": 329.99,
+  "stock": 12
+}
+
+### Delete product variant
+DELETE {{baseUrl}}/product-variants/{{productVariantId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Carts
+### --------------------------------------------------
+
+### Create cart
+POST {{baseUrl}}/carts
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "userId": "{{userId}}",
+  "status": "active"
+}
+
+### Get all carts
+GET {{baseUrl}}/carts
+Authorization: Bearer {{token}}
+
+### Get one cart
+GET {{baseUrl}}/carts/{{cartId}}
+Authorization: Bearer {{token}}
+
+### Update cart
+PATCH {{baseUrl}}/carts/{{cartId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "updated"
+}
+
+### Delete cart
+DELETE {{baseUrl}}/carts/{{cartId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Cart Items
+### --------------------------------------------------
+
+### Create cart item
+POST {{baseUrl}}/cart-items
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "cartId": "{{cartId}}",
+  "productId": "{{productId}}",
+  "quantity": 2
+}
+
+### Get all cart items
+GET {{baseUrl}}/cart-items
+Authorization: Bearer {{token}}
+
+### Get one cart item
+GET {{baseUrl}}/cart-items/{{cartItemId}}
+Authorization: Bearer {{token}}
+
+### Update cart item
+PATCH {{baseUrl}}/cart-items/{{cartItemId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "quantity": 3
+}
+
+### Delete cart item
+DELETE {{baseUrl}}/cart-items/{{cartItemId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Coupons
+### --------------------------------------------------
+
+### Create coupon
+POST {{baseUrl}}/coupons
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "code": "SAVE10",
+  "discountType": "percentage",
+  "discountValue": 10,
+  "minOrderAmount": 50,
+  "expiresAt": "2026-12-31T00:00:00.000Z",
+  "isActive": true
+}
+
+### Get all coupons
+GET {{baseUrl}}/coupons
+Authorization: Bearer {{token}}
+
+### Get one coupon
+GET {{baseUrl}}/coupons/{{couponId}}
+Authorization: Bearer {{token}}
+
+### Update coupon
+PATCH {{baseUrl}}/coupons/{{couponId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "discountValue": 15,
+  "isActive": true
+}
+
+### Delete coupon
+DELETE {{baseUrl}}/coupons/{{couponId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Orders
+### --------------------------------------------------
+
+### Create order
+POST {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "userId": "{{userId}}",
+  "addressId": "{{addressId}}",
+  "status": "pending",
+  "total": 249.99
+}
+
+### Get all orders
+GET {{baseUrl}}/orders
+Authorization: Bearer {{token}}
+
+### Get one order
+GET {{baseUrl}}/orders/{{orderId}}
+Authorization: Bearer {{token}}
+
+### Update order
+PATCH {{baseUrl}}/orders/{{orderId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "processing",
+  "total": 229.99
+}
+
+### Delete order
+DELETE {{baseUrl}}/orders/{{orderId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Order Items
+### --------------------------------------------------
+
+### Create order item
+POST {{baseUrl}}/order-items
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "orderId": "{{orderId}}",
+  "productId": "{{productId}}",
+  "quantity": 1,
+  "price": 249.99
+}
+
+### Get all order items
+GET {{baseUrl}}/order-items
+Authorization: Bearer {{token}}
+
+### Get one order item
+GET {{baseUrl}}/order-items/{{orderItemId}}
+Authorization: Bearer {{token}}
+
+### Update order item
+PATCH {{baseUrl}}/order-items/{{orderItemId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "quantity": 2,
+  "price": 499.98
+}
+
+### Delete order item
+DELETE {{baseUrl}}/order-items/{{orderItemId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Order Coupons
+### --------------------------------------------------
+
+### Create order coupon
+POST {{baseUrl}}/order-coupons
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "orderId": "{{orderId}}",
+  "couponId": "{{couponId}}"
+}
+
+### Get all order coupons
+GET {{baseUrl}}/order-coupons
+Authorization: Bearer {{token}}
+
+### Get one order coupon
+GET {{baseUrl}}/order-coupons/{{orderCouponId}}
+Authorization: Bearer {{token}}
+
+### Update order coupon
+PATCH {{baseUrl}}/order-coupons/{{orderCouponId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "couponId": "{{couponId}}"
+}
+
+### Delete order coupon
+DELETE {{baseUrl}}/order-coupons/{{orderCouponId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Payments
+### --------------------------------------------------
+
+### Create payment
+POST {{baseUrl}}/payments
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "orderId": "{{orderId}}",
+  "method": "card",
+  "amount": 249.99,
+  "status": "pending"
+}
+
+### Get all payments
+GET {{baseUrl}}/payments
+Authorization: Bearer {{token}}
+
+### Get one payment
+GET {{baseUrl}}/payments/{{paymentId}}
+Authorization: Bearer {{token}}
+
+### Update payment
+PATCH {{baseUrl}}/payments/{{paymentId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "paid",
+  "method": "card"
+}
+
+### Delete payment
+DELETE {{baseUrl}}/payments/{{paymentId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Reviews
+### --------------------------------------------------
+
+### Create review
+POST {{baseUrl}}/reviews
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "productId": "{{productId}}",
+  "userId": "{{userId}}",
+  "rating": 5,
+  "comment": "Excellent product and fast delivery."
+}
+
+### Get all reviews
+GET {{baseUrl}}/reviews
+Authorization: Bearer {{token}}
+
+### Get one review
+GET {{baseUrl}}/reviews/{{reviewId}}
+Authorization: Bearer {{token}}
+
+### Update review
+PATCH {{baseUrl}}/reviews/{{reviewId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "rating": 4,
+  "comment": "Good product overall."
+}
+
+### Delete review
+DELETE {{baseUrl}}/reviews/{{reviewId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Wishlists
+### --------------------------------------------------
+
+### Create wishlist
+POST {{baseUrl}}/wishlists
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "userId": "{{userId}}",
+  "productId": "{{productId}}"
+}
+
+### Get all wishlists
+GET {{baseUrl}}/wishlists
+Authorization: Bearer {{token}}
+
+### Get one wishlist
+GET {{baseUrl}}/wishlists/{{wishlistId}}
+Authorization: Bearer {{token}}
+
+### Update wishlist
+PATCH {{baseUrl}}/wishlists/{{wishlistId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "productId": "{{productId}}"
+}
+
+### Delete wishlist
+DELETE {{baseUrl}}/wishlists/{{wishlistId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Vendors
+### --------------------------------------------------
+
+### Create vendor
+POST {{baseUrl}}/vendors
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Tech Supplier",
+  "email": "vendor@example.com",
+  "phone": "1234567890",
+  "address": "100 Vendor Avenue"
+}
+
+### Get all vendors
+GET {{baseUrl}}/vendors
+Authorization: Bearer {{token}}
+
+### Get one vendor
+GET {{baseUrl}}/vendors/{{vendorId}}
+Authorization: Bearer {{token}}
+
+### Update vendor
+PATCH {{baseUrl}}/vendors/{{vendorId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Tech Supplier Updated",
+  "phone": "0987654321"
+}
+
+### Delete vendor
+DELETE {{baseUrl}}/vendors/{{vendorId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Notifications
+### --------------------------------------------------
+
+### Create notification
+POST {{baseUrl}}/notifications
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "userId": "{{userId}}",
+  "title": "Order Shipped",
+  "message": "Your order has been shipped.",
+  "type": "order"
+}
+
+### Get all notifications
+GET {{baseUrl}}/notifications
+Authorization: Bearer {{token}}
+
+### Get one notification
+GET {{baseUrl}}/notifications/{{notificationId}}
+Authorization: Bearer {{token}}
+
+### Update notification
+PATCH {{baseUrl}}/notifications/{{notificationId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Order Delivered",
+  "message": "Your order has been delivered."
+}
+
+### Delete notification
+DELETE {{baseUrl}}/notifications/{{notificationId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Shipments
+### --------------------------------------------------
+
+### Create shipment
+POST {{baseUrl}}/shipments
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "orderId": "{{orderId}}",
+  "carrier": "UPS",
+  "trackingNumber": "1Z123456789",
+  "status": "processing"
+}
+
+### Get all shipments
+GET {{baseUrl}}/shipments
+Authorization: Bearer {{token}}
+
+### Get one shipment
+GET {{baseUrl}}/shipments/{{shipmentId}}
+Authorization: Bearer {{token}}
+
+### Update shipment
+PATCH {{baseUrl}}/shipments/{{shipmentId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "shipped",
+  "trackingNumber": "1Z987654321"
+}
+
+### Delete shipment
+DELETE {{baseUrl}}/shipments/{{shipmentId}}
+Authorization: Bearer {{token}}
+
+### --------------------------------------------------
+### Notes
+### --------------------------------------------------
+
+# This is the final API collection for this backend.
+# It follows the same CRUD pattern across all model-based resources.
+# If a route is not mounted yet in handlers/index.js, register it first.
